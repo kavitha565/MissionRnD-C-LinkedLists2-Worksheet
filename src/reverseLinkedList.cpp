@@ -17,7 +17,26 @@ struct node {
 	int num;
 	struct node *next;
 };
-
 struct node * reverseLinkedList(struct node *head) {
-	return NULL;
+	if (head == NULL)
+		return NULL;
+	struct node *temp;
+	int i = 0, j, Arr[10];
+
+	for (temp = head; temp != NULL; temp = temp->next)
+	{
+		Arr[i] = temp->num;
+		i++;
+
+	}
+	temp = head;
+	for (j = i - 1; j >= 0; j--)
+	{
+		if (temp != NULL)
+		{
+			temp->num = Arr[j];
+			temp = temp->next;
+		}
+	}
+	return head;
 }
