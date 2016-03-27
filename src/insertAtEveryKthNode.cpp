@@ -27,10 +27,10 @@ struct node *create_node(int data)
 	return newnode;
 }
 struct node * insertAtEveryKthNode(struct node *head, int K) {
-	if (head == NULL || K <= 1)
+	if (head == NULL || K <= 0)
 		return NULL;
 	int count = 0, i;
-	struct node *newnode;
+	struct node *newnode=NULL;
 	struct node *curr, *temp, *temp1;
 	curr = head;
 	for (curr = head; curr != NULL; curr = curr->next)
@@ -45,14 +45,14 @@ struct node * insertAtEveryKthNode(struct node *head, int K) {
 		temp1 = temp;
 		for (i = 1; i <= count; i++)
 		{
+			temp1 = temp;
+			temp = temp->next;
 			if (i % K == 0)
 			{
 				newnode = create_node(K);
 				temp1->next = newnode;
 				newnode->next = temp;
 			}
-			temp1 = temp->next;
-			temp = temp->next->next;
 		}
 	}
 	return(head);
