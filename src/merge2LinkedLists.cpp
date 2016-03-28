@@ -20,9 +20,7 @@ struct node
 }*head, *current;
 struct node *createnode(int data)
 {
-	//static struct node *head = NULL;
-	struct node *new_node;
-	new_node = (struct node*)malloc(sizeof(struct node));
+	struct node *new_node = (struct node*)malloc(sizeof(struct node));
 	new_node->num = data;
 	new_node->next = NULL;
 	if (head == NULL)
@@ -38,35 +36,39 @@ struct node *createnode(int data)
 	return head;
 }
 struct node * merge2LinkedLists(struct node *head1, struct node *head2) {
-	if (head1 == NULL || head2 == NULL)
+	if(head1 == NULL && head2 == NULL)
 		return NULL;
-	int temp[10], i, k = 0;
-	struct node *result;
-	struct node *temp1 = head1, *temp2 = head2;
-	while (temp1 != NULL&&temp2 != NULL)
-	{
-		if ((temp1->num)< (temp2->num))
+	else if (head1 != NULL&&head2 == NULL)
+		return head1;
+	else if (head2 != NULL&&head1 == NULL)
+		return head2;
+	else{
+		head = NULL;
+		struct node *result = NULL;
+		struct node *temp1 = head1, *temp2 = head2;
+		while (temp1 != NULL&&temp2 != NULL)
 		{
-			temp[k++] = temp1->num;
+			if ((temp1->num) < (temp2->num))
+			{
+				result=createnode(temp1->num);
+				temp1 = temp1->next;
+			}
+			else
+			{
+				result = createnode(temp2->num);
+				temp2 = temp2->next;
+			}
+		}
+		while (temp1 != NULL)
+		{
+			result = createnode(temp1->num);
 			temp1 = temp1->next;
 		}
-		else
+		while (temp2 != NULL)
 		{
-			temp[k++] = temp2->num;
+			result = createnode(temp2->num);
 			temp2 = temp2->next;
 		}
+		return result;
 	}
-	while (temp1 != NULL)
-	{
-		temp[k++] = temp1->num;
-		temp1 = temp1->next;
-	}
-	while (temp2 != NULL)
-	{
-		temp[k++] = temp2->num;
-		temp2 = temp2->next;
-	}
-	for (i = 0; i < k; i++)
-		result = createnode(temp[i]);
-	return result;
 }
